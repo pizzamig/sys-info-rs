@@ -28,7 +28,11 @@ const char *get_os_release(void) {
 	return (os_release);
 }
 
+#if defined(__i386__)
+unsigned long get_cpu_speed(void) {
+#else
 uint64_t get_cpu_speed(void) {
+#endif
 	uint64_t tsc_freq;
 	size_t len;
 	int error;
@@ -44,7 +48,11 @@ uint64_t get_cpu_speed(void) {
 	return (tsc_freq / 1000 / 1000);
 }
 
+#if defined(__i386__)
+unsigned long get_proc_total(void) {
+#else
 uint64_t get_proc_total(void) {
+#endif
 	struct kinfo_proc *kp, *kpp;
 	int mib[3], count, error;
 	size_t len;
